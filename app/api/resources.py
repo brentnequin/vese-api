@@ -8,6 +8,9 @@ from app import db
 from app.models import Event
 from .schemas import events_schema, event_schema
 
+class ResourceException(Exception):
+    pass
+
 class EventListResource(Resource):
 
     def get(self):
@@ -21,8 +24,11 @@ class EventListResource(Resource):
                 title = request.form.get('title'),
                 description = request.form.get('description'),
                 time_start = to_datetime(request.form.get('time_start'), '%m-%d-%Y %H:%M:%S'),
-                time_end = to_datetime(request.form.get('time_end'), '%m-%d-%Y %H::%M:%S'),
+                time_end = to_datetime(request.form.get('time_end'), '%m-%d-%Y %H:%M:%S'),
             )
+
+            if event.time_end and event.time_start > event.time_end:
+                raise ResourceException(f"start time ({event.time_start}) can not be later than end time ({event.time_end})")
 
             db.session.add(event)
             db.session.commit()
