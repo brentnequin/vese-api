@@ -7,7 +7,10 @@ migrate = Migrate()
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, unique=True)
-    desription = db.Column(db.String)
+    description = db.Column(db.String)
+    time_start = db.Column(db.DateTime)
+    time_end = db.Column(db.DateTime)
+    date = db.Column(db.DateTime)
 
     def __repr__(self):
         return '<Post %r>' % self.title
