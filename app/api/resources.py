@@ -6,17 +6,12 @@ from app.models import Event
 from .schemas import events_schema, event_schema
 
 class EventListResource(Resource):
+
     def get(self):
         events = Event.query.all()
         return events_schema.dump(events)
 
-class EventResource(Resource):
-
-    def get(self, id):
-        event = Event.query.filter_by(id=id).first()
-        return event_schema.dump(event)
-
-    def post(self, id=None):
+    def post(self):
         try:
             title = request.form['title']
             description = request.form['description']
@@ -29,3 +24,9 @@ class EventResource(Resource):
             return {"message": str(e)}, 400
         else:
             return None, 200
+
+class EventResource(Resource):
+
+    def get(self, id):
+        event = Event.query.filter_by(id=id).first()
+        return event_schema.dump(event)

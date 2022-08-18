@@ -5,4 +5,4 @@ from .resources import EventListResource, EventResource
 api = Api()
 
 api.add_resource(EventListResource, '/events')
-api.add_resource(EventResource, '/events/<int:id>')
+api.add_resource(EventResource, '/event/<int:id>')
