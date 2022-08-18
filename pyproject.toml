@@ -26,6 +26,7 @@ pylint = "^2.14.5"
 
 [tool.poetry.scripts]
 unittests = "tests.unit:run"
+dev = "app:run"
 
 [tool.coverage.run]
 source = ['app']

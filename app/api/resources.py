@@ -1,3 +1,6 @@
+from datetime import datetime
+from app.util import to_datetime
+
 from flask import request
 from flask_restful import Resource
 
@@ -13,17 +16,20 @@ class EventListResource(Resource):
 
     def post(self):
         try:
-            title = request.form['title']
-            description = request.form['description']
 
-            event = Event(title=title, description=description)
+            event = Event(
+                title = request.form.get('title'),
+                description = request.form.get('description'),
+                time_start = to_datetime(request.form.get('time_start'), '%m-%d-%Y %H:%M:%S'),
+                time_end = to_datetime(request.form.get('time_end'), '%m-%d-%Y %H::%M:%S'),
+            )
 
             db.session.add(event)
             db.session.commit()
         except Exception as e:
             return {"message": str(e)}, 400
         else:
-            return None, 200
+            return {"id": event.id}, 200
 
 class EventResource(Resource):
 

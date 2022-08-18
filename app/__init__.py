@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_migrate import upgrade
 
 from app.models import db, migrate
 from app.views import views
@@ -17,7 +18,10 @@ def create_app(app_config=None):
 
     return app
 
-if __name__ == "__main__":
-
+def run():
     app = create_app()
     app.run()
+
+if __name__ == "__main__":
+
+    run()

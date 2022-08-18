@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -6,11 +8,11 @@ migrate = Migrate()
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String, unique=True)
+    title = db.Column(db.String)
     description = db.Column(db.String)
     time_start = db.Column(db.DateTime)
     time_end = db.Column(db.DateTime)
-    date = db.Column(db.DateTime)
+    created_at = db.Column(db.DateTime, default=datetime.now())
 
     def __repr__(self):
         return '<Post %r>' % self.title
