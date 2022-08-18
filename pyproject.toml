@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "vese-api"
+version = "0.1.0"
+description = ""
+authors = ["name <email@email.com>"]
+
+packages = [
+    { include = 'app' }
+]
+
+[tool.poetry.dependencies]
+python = "3.10.6"
+Flask = "^2.2.2"
+Flask-SQLAlchemy = "^2.5.1"
+Flask-RESTful = "^0.3.9"
+marshmallow-sqlalchemy = "^0.28.1"
+gunicorn = "^20.1.0"
+psycopg2 = "^2.9.3"
+Flask-Migrate = "^3.1.0"
+importlib-metadata = "^4.12.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+pytest-cov = "^3.0.0"
+pylint = "^2.14.5"
+
+[tool.poetry.scripts]
+unittests = "tests.unit:run"
+
+[tool.coverage.run]
+source = ['app']
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning::"
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
