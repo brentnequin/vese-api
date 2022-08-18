@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_migrate import upgrade
+from flask_cors import CORS
 
 from app.models import db, migrate
 from app.views import views
@@ -13,6 +14,7 @@ def create_app(app_config=None):
     db.init_app(app)
     api.init_app(app)
     migrate.init_app(app, db)
+    CORS(app)
 
     app.register_blueprint(views)
 
